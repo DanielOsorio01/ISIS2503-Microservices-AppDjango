@@ -80,7 +80,7 @@ DATABASES = {
         'NAME': 'places_db',
         'USER': 'places_user',
         'PASSWORD': 'isis2503',
-        'HOST': '0.0.0.0',
+        'HOST': '10.158.0.9',
         'PORT': '5432',
     }
 }
