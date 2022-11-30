@@ -16,6 +16,14 @@ def check_variable(data):
             return True
     return False
 
+def check_place(data):
+    r = requests.get(settings.PATH_PLACE, headers={"Accept":"application/json"})
+    places = r.json()
+    for place in places:
+        if data["place"] == place["id"]:
+            return True
+    return False
+
 def MeasurementList(request):
     queryset = Measurement.objects.all()
     context = list(queryset.values('id', 'variable', 'value', 'unit', 'place', 'dateTime'))
@@ -42,12 +50,15 @@ def MeasurementsCreate(request):
         data_json = json.loads(data)
         measurement_list = []
         for measurement in data_json:
-                    if check_variable(measurement) == True:
+                    if check_variable(measurement):
                         db_measurement = Measurement()
                         db_measurement.variable = measurement['variable']
                         db_measurement.value = measurement['value']
                         db_measurement.unit = measurement['unit']
-                        db_measurement.place = measurement['place']
+                        if check_place(measurement):
+                            db_measurement.place = measurement['place']
+                        else:
+                            db_measurement.place = -1
                         measurement_list.append(db_measurement)
                     else:
                         return HttpResponse("unsuccessfully created measurement. Variable does not exist")
