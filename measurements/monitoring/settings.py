@@ -78,9 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'measurements_db',
-        'USER': 'measurements_user',
+        'USER': 'measurement_user',
         'PASSWORD': 'isis2503',
-        'HOST': '0.0.0.0',
+        'HOST': '10.158.0.3',
         'PORT': '5432',
     }
 }
