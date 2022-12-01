@@ -38,7 +38,10 @@ def MeasurementCreate(request):
             measurement.variable = data_json['variable']
             measurement.value = data_json['value']
             measurement.unit = data_json['unit']
-            measurement.place = data_json['place']
+            if check_place(data_json):
+                measurement.place = data_json['place']
+            else:
+                measurement.place = -1
             measurement.save()
             return HttpResponse("successfully created measurement")
         else:
